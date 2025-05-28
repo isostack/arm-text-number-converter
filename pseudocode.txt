@@ -1,0 +1,282 @@
+Text/Number Converter
+
+-------------------------------------------------------
+converter.s
+Calculate conversions for inputted text/number
+
+@# Initialize values for the menu prompt input and user text/number input
+@char choice;
+@char input[100];
+
+@# Outer loop to prompt menu options
+@do {
+@    printf("===========Menu===========\n"
+@            "[1] Text to ASCII\n"
+@            "[2] Text to Binary\n"
+@            "[3] Text to Hexadecimal\n"
+@            "[4] Number to ASCII\n"
+@            "[5] Number to Binary\n"
+@            "[6] Number to Hexadecimal\n"
+@            "[Q] Quit\n"
+@            "Choose an option: ");
+
+@    scanf(" %c", &choice); # Get the menu choice from the user
+@    switch (choice) { # Menu choices
+@        case '1': # Text to ASCII choice
+@            printf("Enter Text: ");
+@            scanf(" %[^\n]s", input);  # Get the text from user to convert to
+@            text_to_ascii(input);      # Convert text to ASCII
+@            break;                     # Reprompt to Menu
+
+@        case '2': # Text to Binary choice
+@            printf("Enter Text: ");
+@            scanf(" %[^\n]s", input);  # Get the text from user to convert to
+@            text_to_binary(input);     # Convert text to Binary
+@            break;                     # Reprompt to Menu
+
+@        case '3': # Text to Hexadecimal choice
+@            printf("Enter Text: ");    
+@            scanf(" %[^\n]s", input);  # Get the text from user to convert to
+@            text_to_hex(input);        # Convert text to Hexadecimal
+@            break;                     # Reprompt to Menu
+
+@        case '4': # Number to ASCII choice
+@            printf("Enter Number: ");
+@            scanf(" %[^\n]s", input);  # Get the number from user to convert to
+
+@            if (isdigit(input)) {      # Did the user give an actual number?
+@                num_to_ascii(input);   #   Convert number to ASCII
+@            } else {                   # Otherwise, output an error message
+@                printf("\n\nERROR: Input must be number.\n\n");
+@            }
+@            break;                     # Reprompt to Menu
+
+@        case '5': # Number to Binary choice
+@            printf("Enter Number: ");
+@            scanf(" %[^\n]s", input);  # Get the number from user to convert to
+
+@            if (isdigit(input)) {      # Did the user give an actual number? 
+@                num_to_binary(input);  #   Convert number to Binary
+@            } else {                   # Otherwise, output an error message
+@                printf("\n\nERROR: Input must be number.\n\n");
+@            }
+@            break;                     # Reprompt to Menu
+            
+@        case '6': # Number to Hexadecimal choice
+@            printf("Enter Number: ");
+@            scanf(" %[^\n]s", input);  # Get the number from user to convert to
+
+@            if (isdigit(input)) {      # Did the user give an actual number?
+@                num_to_hex(input);     #   Convert number to Hexadecimal
+@            } else {                   # Otherwise, output an error message
+@                printf("\n\nERROR: Input must be number.\n\n");
+@            }
+@            break;                     # Reprompt to Menu
+
+@        case 'Q': # Quit Menu choice
+@            break;
+
+@        default: # Invalid option output
+@            printf("\n\nERROR: Option not found.\n\n");
+@    } # End inner menu choices
+@} while (choice != 'Q'); # End outer loop to prompt menu options
+
+-------------------------------------------------------
+text_to_ascii.s
+Convert given text from user to ascii numbers
+
+
+Input
+R0 = address of ASCII digits
+    Ascii digits end with a newline character
+Return
+R0 = ascii number(s) in string form
+    If the input text is blank, return -1
+R1 = total clock time in seconds
+    Float value (should be relatively low, like 0.000012)
+    
+@   Initialize Registers
+@   Initialize the clock start and end from time.h
+@   Start the clock (to calculate the total conversion time in seconds)
+@   If the argument is only a new line or NULL, 
+@        output an error message, return -1
+
+@   While character is not NULL
+@       Store input ascii values as integer array
+@       Point to the next character
+
+@   For each integer ascii value in the integer array
+@       Store it as a string (ex. [154, 123] -> '154 123')
+
+@   End the clock and calculate conversion time
+
+@   Output the Text to ASCII string
+@   Output the total conversion time from the clock function
+@   return 0
+
+-------------------------------------------------------
+text_to_binary.s
+Convert given text from user to binary numbers
+
+
+R0 = address of ASCII digits
+    Ascii digits end with a newline character
+Return
+R0 = binary number(s) in string form
+    If the input text is blank, return -1
+R1 = total clock time in seconds
+    Float value (should be relatively low, like 0.000012)
+
+@   Initialize Registers
+@   Initialize the clock start and end from time.h
+@   Start the clock (to calculate the total conversion time in seconds)
+@   If the argument is only a new line or NULL, 
+@        output an error message, return -1
+
+@   While character is not NULL
+@       For 8 characters of binary (to get a value like '01101000')
+@           putchar the character and store it to array whether it's 0 or 1
+@       Point to the next character
+
+@   For each integer binary value in the integer array
+@       Store it as a string (ex. [01101000, 01100101, 01101100, 01101100, 01101111] -> '01101000 01100101 01101100 01101100 01101111')
+
+@   End the clock and calculate conversion time
+
+@   Output the binary string
+@   Output the total conversion time from the clock function
+@   return 0
+
+-------------------------------------------------------
+text_to_hex.s
+Convert given text from user to hexadecimal numbers
+
+
+R0 = address of ASCII digits
+    Ascii digits end with a newline character
+Return
+R0 = hexadecimal number(s) in string form
+    If the input text is blank, return -1
+R1 = total clock time in seconds
+    Float value (should be relatively low, like 0.000012)
+
+@   Initialize Registers
+@   Initialize the clock start and end from time.h
+@   Start the clock (to calculate the total conversion time in seconds)
+@   If the argument is only a new line or NULL, 
+@        output an error message, return -1
+
+@   While character is not NULL
+@       Store input ascii values as char array of hexadecimal values using sprintf("%02X")
+@       Point to the next character
+
+@   For each char hexadecimal value in the char array
+@       Store it as one string (ex. [68, 65, 6C, 6C, 6F] -> '68 65 6C 6C 6F')
+
+@   End the clock and calculate conversion time
+
+@   Output the hexadecimal string
+@   Output the total conversion time from the clock function
+@   return 0
+
+-------------------------------------------------------
+number_to_ascii.s
+Convert given number from user to ascii numbers
+
+
+Input
+R0 = address of ASCII digits
+    Ascii digits end with a newline character
+Return
+R0 = ascii number(s) in string form
+    If the input text is blank, return -1
+R1 = total clock time in seconds
+    Float value (should be relatively low, like 0.000012)
+
+@   Initialize Registers
+@   Initialize the clock start and end from time.h
+@   Start the clock (to calculate the total conversion time in seconds)
+@   If the argument is only a new line or NULL, 
+@        output an error message, return -1
+
+@   While character is not NULL
+@       Store input ascii values as integer array
+@       Convert the ascii digit to decimal
+@       Add it with the last decimal
+@       Point to the next character
+
+@   Get the final decimal value and convert it to it's ascii equivalent
+
+@   End the clock and calculate conversion time
+
+@   Output the number to ascii string
+@   Output the total conversion time from the clock function
+@   return 0
+
+-------------------------------------------------------
+number_to_binary.s
+Convert given number from user to a binary number
+
+
+Input
+R0 = address of ASCII digits
+    Ascii digits end with a newline character
+Return
+R0 = ascii number(s) in string form
+    If the input text is blank, return -1
+R1 = total clock time in seconds
+    Float value (should be relatively low, like 0.000012)
+
+@   Initialize Registers
+@   Initialize the clock start and end from time.h
+@   Start the clock (to calculate the total conversion time in seconds)
+@   If the argument is only a new line or NULL, 
+@        output an error message, return -1
+
+@   While character is not NULL
+@       Store input ascii values as integer array
+@       Convert the ascii digit to decimal
+@       Add it with the last decimal
+@       Point to the next character
+
+@   Get the final decimal value and convert it to it's binary equivalent
+
+@   End the clock and calculate conversion time
+
+@   Output the binary number as an ascii string
+@   Output the total conversion time from the clock function
+@   return 0
+
+-------------------------------------------------------
+number_to_hex.s
+Convert given number from user to a binary number
+
+
+Input
+R0 = address of ASCII digits
+    Ascii digits end with a newline character
+Return
+R0 = ascii number(s) in string form
+    If the input text is blank, return -1
+R1 = total clock time in seconds
+    Float value (should be relatively low, like 0.000012)
+
+@   Initialize Registers
+@   Initialize the clock start and end from time.h
+@   Start the clock (to calculate the total conversion time in seconds)
+@   If the argument is only a new line or NULL, 
+@        output an error message, return -1
+
+@   While character is not NULL
+@       Store input ascii values as integer array
+@       Convert the ascii digit to decimal
+@       Add it with the last decimal
+@       Point to the next character
+
+@   Get the final decimal value and convert it to it's hexadecimal equivalent
+
+@   End the clock and calculate conversion time
+
+@   Output the hexadecimal number to ascii string
+@   Output the total conversion time from the clock function
+@   return 0

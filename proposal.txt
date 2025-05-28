@@ -1,0 +1,108 @@
+Text/Number Converter
+
+Description:
+This program will convert given text/number to ASCII, binary, or hexadecimal. 
+The user will enter the option they want to convert to and then input their text. 
+The program will display the converted value and reprompt the user again if they want to convert a text/number.
+
+Functions:
+text_to_ascii
+Change a text (ascii) input to ascii number.
+Output the ascii number to printf.
+Input
+R0 = address of ascii input
+
+text_to_binary
+Change a text (ascii) input to a ascii binary number.
+Output the binary number to printf.
+Input
+R0 = address of ascii input
+
+text_to_hex
+Change a text (ascii) input to a ascii hex number.
+Output the hexadecimal number to printf.
+Input
+R0 = address of ascii input
+
+num_to_ascii
+Change a number (ascii) input to ascii text.
+Output the ascii character to printf.
+Input
+R0 = address of ascii input
+
+num_to_binary
+Change a number (ascii) input to ascii binary.
+Output the binary number to printf.
+Input
+R0 = address of ascii input
+
+num_to_hex
+Change a number (ascii) input to ascii hex.
+Output the hexadecimal number to printf.
+Input
+R0 = address of ascii input
+
+divide
+Source: Book
+Uses long divide from textbook, used for binary conversion in this program
+Input
+R0 = Dividend
+R1 = Divisor
+Output
+R0 = Quotient
+R1 = Remainder
+
+C Library calls:
+printf - display output
+sprintf - merge output with another string
+atoi - converts a given ascii text to integer
+isdigit - checks if the passed character is a decimal digit character
+
+Error Conditions:
+1. User doesn't enter an option within the menu
+   Display an error message and retry the menu prompt.
+
+2. User doesn't enter valid ASCII number for [4] (inputs number<36 or number>126)
+   Display an error message and retry the menu prompt.
+
+3. User doesn't enter a valid number when doing number to ASCII/Binary/Hexadecimal conversion
+   Display an error message and retry the menu prompt.
+
+Sample Output:
+
+===========Menu===========
+[1] Text to ASCII
+[2] Text to Binary
+[3] Text to Hexadecimal
+[4] Number to ASCII
+[5] Number to Binary
+[6] Number to Hexadecimal
+[Q] Quit
+Choose an option: 2
+Enter text: hello 123
+
+'hello 123' Text to Binary is:
+01101000 01100101 01101100 01101100 01101111 00100000 00110001 00110010 00110011
+
+===========Menu===========
+[1] Text to ASCII
+[2] Text to Binary
+[3] Text to Hexadecimal
+[4] Number to ASCII
+[5] Number to Binary
+[6] Number to Hexadecimal
+[Q] Quit
+Choose an option: 5
+Enter number: hello
+
+ERROR: Input must be a positive number.
+
+===========Menu===========
+[1] Text to ASCII
+[2] Text to Binary
+[3] Text to Hexadecimal
+[4] Number to ASCII
+[5] Number to Binary
+[6] Number to Hexadecimal
+[Q] Quit
+Choose an option: Q
