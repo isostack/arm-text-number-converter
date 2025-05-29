@@ -17,7 +17,7 @@ This project is a command-line interactive tool written entirely in ARM Assembly
 - Custom division subroutine for binary conversion
 - Robust input validation (e.g., ASCII range checking, digit verification)
 - Manual memory handling via registers and `.space` buffers
-- Fully modular: Each function exists in its own `.s` file and is invoked via BL calls
+- Fully modular: Each function exists in its own `.s` file and is invoked via `BL` calls
 
 ---
 
@@ -36,7 +36,7 @@ This project is a command-line interactive tool written entirely in ARM Assembly
 
 ---
 
-## 💡 Why It’s Impressive
+## 💡 Skills Demonstrated
 
 This project demonstrates hands-on expertise in:
 
@@ -68,12 +68,49 @@ This project demonstrates hands-on expertise in:
 
 ---
 
-## 📌 Note
+## 📤 Sample Output
 
-Ensure you are compiling and running this on a Raspberry Pi or ARM-compatible environment. The code uses `SWI` instructions for system calls, which are platform-specific.
+```
+===========Menu===========
+[1] Text to ASCII
+[2] Text to Binary
+[3] Text to Hexadecimal
+[4] Number to ASCII
+[5] Number to Binary
+[6] Number to Hexadecimal
+[Q] Quit
+Choose an option: 2
+Enter text: hello 123
+
+'hello 123' Text to Binary is:
+01101000 01100101 01101100 01101100 01101111 00100000 00110001 00110010 00110011
+
+===========Menu===========
+[1] Text to ASCII
+[2] Text to Binary
+[3] Text to Hexadecimal
+[4] Number to ASCII
+[5] Number to Binary
+[6] Number to Hexadecimal
+[Q] Quit
+Choose an option: 5
+Enter number: hello
+
+ERROR: Input must be a positive number.
+
+===========Menu===========
+[1] Text to ASCII
+[2] Text to Binary
+[3] Text to Hexadecimal
+[4] Number to ASCII
+[5] Number to Binary
+[6] Number to Hexadecimal
+[Q] Quit
+Choose an option: Q
+```
 
 ---
 
-## 📜 License
+## 📌 Note
 
-MIT License
+Ensure you are compiling and running this on a Raspberry Pi or ARM-compatible environment. The code uses `SWI` instructions for system calls, which are platform-specific.
